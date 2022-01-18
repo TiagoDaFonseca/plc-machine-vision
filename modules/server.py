@@ -20,16 +20,15 @@ class App(Server):
         # give server a name
         self.set_server_name(name)
         # set up namespace (optional)
-        ocr_space = self.register_namespace(uri)
+        self.ocr_space = self.register_namespace(uri)
         # get Objects node, this is where we should put our objects
         self.objects = self.get_objects_node()
         # populate our object nodes
-        self.inspection = self.objects.add_object(ocr_space, "Inspection")
+        self.product = self.objects.add_object(self.ocr_space, "Product")
         # add variable to the object
-        self.id = self.inspection.add_variable(ocr_space, "ID", -1)
+        self.id = self.product.add_variable(self.ocr_space, "ID", -1)
         # set variable to be writable by client
         self.id.set_writable()
-        
 
 # TEST UNIT
 if __name__ == "__main__":
