@@ -2,6 +2,10 @@ from opcua import ua, Server
 from random import randint
 import datetime 
 import time 
+import logging
+
+logging.basicConfig(level=logging.DEBUG)
+logger = logging.getLogger(name="App")
 
 
 class App(Server):
@@ -27,7 +31,7 @@ class App(Server):
         self.id.set_writable()
         
 
-
+# TEST UNIT
 if __name__ == "__main__":
 
     srv = App()
