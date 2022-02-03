@@ -1,15 +1,5 @@
 #--------------------------------------------------------------------------------------
 # Optical character recognition algorithm
-#
-# Author: T. Cunha 
-#
-# Introsys S.A.
-#
-#----------------------------------------------------------------------------------------
-#Control variables
-min_thresh = 180
-max_thresh = 255
-
 
 #Modules
 import cv2
@@ -18,6 +8,10 @@ import numpy as np
 import imutils
 import pytesseract
 import os
+#Control variables
+min_thresh = 180
+max_thresh = 255
+
 
 #----------------------------------------------------------------------------------------
 #Functions

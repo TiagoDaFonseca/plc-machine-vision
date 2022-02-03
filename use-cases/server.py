@@ -56,15 +56,6 @@ def plc_read_unload(parent):
   bit = B.bin[6]
   plc.disconnect()
   return bit 
-
-@uamethod
-def plc_read_openmos_on(parent):
-  plc = snap7.connect('171.20.20.10',0,1) # rack and slot
-  read = plc.db_read(2000,4,1)# reads byte 4
-  B = BitArray(read)
-  bit = B.bin[5]
-  plc.disconnect()
-  return bit
   
 #PLC writings  
 @uamethod
@@ -106,13 +97,6 @@ def plc_write_unload(parent, state):
   read = plc.db_write(2000,4,1,read)
   plc.disconnect()
   
-@uamethod
-def plc_write_openmos_on(parent, state):
-  plc = snap7.connect('171.20.20.10',0,1) # rack and slot
-  read = plc.db_read(2000,4,1)# reads byte 4
-  snap7.util.set_bool(read, 0, 2,state) # third bit
-  read = plc.db_write(2000,4,1,read)
-  plc.disconnect()
   
 #OCR inspection
 @uamethod
@@ -147,9 +131,9 @@ def Inspect(parent, call):
 class AppServer(object):
 
   def __init__(self,
-               endpoint="opc.tcp://0.0.0.0:4840/learning-kits/server/",
-               uri="http://learning-kits.introsys.eu",
-               name="Learning kits"):
+               endpoint="opc.tcp://0.0.0.0:4840/one-example/server/",
+               uri="http://this.one-example.org",
+               name="example"):
 
     # set up server
     self.server = Server()
@@ -176,7 +160,6 @@ class AppServer(object):
     plc_read_Mv2Press_node = obj_product.add_method(idx, "Read Mv2Press", plc_read_move_to_press,[], [ua.VariantType.Boolean])
     plc_read_Mv2Unload_node = obj_product.add_method(idx, "Read Mv2Unload", plc_read_move_to_unload,[], [ua.VariantType.Boolean])
     plc_read_unload_node = obj_product.add_method(idx, "Read Unload", plc_read_unload,[], [ua.VariantType.Boolean])
-    plc_read_openmos_node = obj_product.add_method(idx, "Read OpenMOS ON", plc_read_openmos_on,[], [ua.VariantType.Boolean])
 
     #To Write
     plc_write_load_node = obj_product.add_method(idx, "Write Load", plc_write_load,[ua.VariantType.Boolean], [])
@@ -184,7 +167,6 @@ class AppServer(object):
     plc_write_type_node = obj_product.add_method(idx, "Write Type", plc_write_type,[ua.VariantType.Int64], [])
     plc_write_unload_node = obj_product.add_method(idx, "Write Unload", plc_write_unload,[ua.VariantType.Boolean], [])
     plc_write_Mv2Unload_node = obj_product.add_method(idx, "Write Mv2Unload", plc_write_move_to_unload,[ua.VariantType.Boolean], [])
-    plc_write_openmos_node = obj_product.add_method(idx, "Write OpenMOS ON", plc_write_openmos_on,[ua.VariantType.Boolean], [])
     
     
   def start(self):
